@@ -1,11 +1,12 @@
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors');         // Import cors
 const { json } = require('body-parser');
 const { jwt: { AccessToken } } = require('twilio');
 const VideoGrant = AccessToken.VideoGrant;
 
 const app = express();
-app.use(cors());
+
+app.use(cors());                     // Enable CORS for all origins
 app.use(json());
 
 app.post('/api/token', (req, res) => {
@@ -19,6 +20,7 @@ app.post('/api/token', (req, res) => {
   );
 
   token.addGrant(new VideoGrant({ room }));
+
   res.status(200).json({ token: token.toJwt() });
 });
 
